@@ -50,7 +50,7 @@ static int cmd_info(char *args) {
   if(!args){
     printf("error! info r: print registers. info w: print watch point\n");
   }
-  else if(*args == "r"){
+  else if(strcmp("r", args) == 0){
       printf("eax:\t%x\t%d\n", cpu.eax, cpu.eax);
       printf("edx:\t%x\t%d\n", cpu.edx, cpu.edx);
       printf("ecx:\t%x\t%d\n", cpu.ecx, cpu.ecx);
@@ -60,7 +60,7 @@ static int cmd_info(char *args) {
       printf("esp:\t%x\t%d\n", cpu.esp, cpu.esp);
       printf("eip:\t%x\t%d\n", cpu.eip, cpu.eip);
   }
-  else if(*args == "w"){
+  else if(strcmp("w", args) == 0){
 
   }
   return 0;
