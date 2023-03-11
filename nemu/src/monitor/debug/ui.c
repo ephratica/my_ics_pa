@@ -76,12 +76,12 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  { "si [N]", "execute N instructions, N=1 in default", cmd_si },
-  { "info SUBCMD", "info r: print registers. info w: print watch point", cmd_info },
-  { "p EXPR ", "calculate the value of EXPR", cmd_p },
-  { "x N EXPR", "print N*4 bytes from the addr EXPR", cmd_x },
-  { "w EXPR", "stop when addr EXPR changed", cmd_w },
-  { "d N ", "delete No.N watch point", cmd_d },
+  { "si", "execute N instructions, N=1 in default", cmd_si },
+  { "info", "info r: print registers. info w: print watch point", cmd_info },
+  { "p", "calculate the value of EXPR", cmd_p },
+  { "x", "print N*4 bytes from the addr EXPR", cmd_x },
+  { "w", "stop when addr EXPR changed", cmd_w },
+  { "d", "delete No.N watch point", cmd_d },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
