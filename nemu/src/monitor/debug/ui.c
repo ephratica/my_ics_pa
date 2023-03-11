@@ -38,6 +38,34 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args) {
+  int n 1;
+  if(args)
+    n = strtol(args, NULL, 10);
+  cpu_exec(n);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -48,7 +76,12 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si [N]", "execute N instructions, N=1 in default", cmd_si },
+  { "info SUBCMD", "info r: print registers. info w: print watch point", cmd_info },
+  { "p EXPR ", "calculate the value of EXPR", cmd_p },
+  { "x N EXPR", "print N*4 bytes from the addr EXPR", cmd_x },
+  { "w EXPR", "stop when addr EXPR changed", cmd_w },
+  { "d N ", "delete No.N watch point", cmd_d },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
