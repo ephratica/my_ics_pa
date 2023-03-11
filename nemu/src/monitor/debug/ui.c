@@ -39,7 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-  int n 1;
+  int n = 1;
   if(args)
     n = strtol(args, NULL, 10);
   cpu_exec(n);
