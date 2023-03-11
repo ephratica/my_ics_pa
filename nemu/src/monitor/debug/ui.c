@@ -51,14 +51,14 @@ static int cmd_info(char *args) {
     printf("error! info r: print registers. info w: print watch point\n");
   }
   else if(strcmp("r", args) == 0){
-      printf("eax:\t0x%04x\t%04d\n", cpu.eax, cpu.eax);
-      printf("edx:\t0x%04x\t%04d\n", cpu.edx, cpu.edx);
-      printf("ecx:\t0x%04x\t%04d\n", cpu.ecx, cpu.ecx);
-      printf("ebx:\t0x%04x\t%04d\n", cpu.ebx, cpu.ebx);
-      printf("ebp:\t0x%04x\t%04d\n", cpu.ebp, cpu.ebp);
-      printf("esi:\t0x%04x\t%04d\n", cpu.esi, cpu.esi);
-      printf("esp:\t0x%04x\t%04d\n", cpu.esp, cpu.esp);
-      printf("eip:\t0x%04x\t%04d\n", cpu.eip, cpu.eip);
+      printf("eax:\t0x%08x\n", cpu.eax);
+      printf("edx:\t0x%08x\n", cpu.edx);
+      printf("ecx:\t0x%08x\n", cpu.ecx);
+      printf("ebx:\t0x%08x\n", cpu.ebx);
+      printf("ebp:\t0x%08x\n", cpu.ebp);
+      printf("esi:\t0x%08x\n", cpu.esi);
+      printf("esp:\t0x%08x\n", cpu.esp);
+      printf("eip:\t0x%08x\n", cpu.eip);
   }
   else if(strcmp("w", args) == 0){
 
