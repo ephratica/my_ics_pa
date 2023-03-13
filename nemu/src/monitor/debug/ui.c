@@ -90,8 +90,8 @@ static int cmd_x(char *args) {
   unsigned int expr = 0;
   sscanf(EXPR, "%x", &expr);
   printf("expr:%d\n", expr);
-  for(int i=0;i<n*4;i++){
-    printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (expr + i), vaddr_read(expr + i, 4));
+  for(int i=0;i<n;i++){
+    printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (expr + i*4), vaddr_read(expr + i*4, 4));
   }
   return 0;
 }
