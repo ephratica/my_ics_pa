@@ -71,6 +71,27 @@ static int cmd_p(char *args) {
 }
 
 static int cmd_x(char *args) {
+  // get N
+  char *ch_N = strtok(args, " ");
+  if(ch_N == NULL){
+    printf("error! Please enter N.\n");
+    return 0;
+  }
+  int n = strtol(ch_N, NULL, 10);
+
+  // get EXPR
+  char *EXPR = strtok(NULL, " ");
+  if(EXPR == NULL){
+    printf("error! Please enter EXPR\n");
+    return 0;
+  }
+
+  // 0x only
+  int expr = 0;
+  sscanf(EXPR, "%x", &expr);
+  for(int i=0;i<n;i++){
+    printf("addr:\t%08x\tvalue:\t%08x\n", (expr + i), *(expr + i));
+  }
   return 0;
 }
 
