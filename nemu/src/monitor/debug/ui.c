@@ -90,7 +90,7 @@ static int cmd_x(char *args) {
   int expr = 0;
   sscanf(EXPR, "%x", &expr);
   for(int i=0;i<n;i++){
-    printf("addr:\t%08x\tvalue:\t%08x\n", (expr + i), *(expr + i));
+    printf("addr:\t%08x\tvalue:\t%08x\n", (expr + i), *((unsigned int *)(expr + i)));
   }
   return 0;
 }
