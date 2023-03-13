@@ -89,8 +89,9 @@ static int cmd_x(char *args) {
   // 0x only
   int expr = 0;
   sscanf(EXPR, "%x", &expr);
+  printf("expr:%d\n", expr);
   for(int i=0;i<n;i++){
-    printf("addr:\t%08x\tvalue:\t%08x\n", (expr + i), *((unsigned int *)(expr + i)));
+    printf("addr:\t%08x\tvalue:\t%08x\n", (expr + i*4), *((unsigned int *)(expr + i*4)));
   }
   return 0;
 }
