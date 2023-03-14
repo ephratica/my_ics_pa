@@ -92,8 +92,9 @@ static int cmd_x(char *args) {
   //sscanf(EXPR, "%x", &expr);
 
   // expr
-  //printf("expr:%d\n", expr);
+  
   Expr = expr(EXPR, &success);
+  printf("expr:0x%x\n", Expr);
   for(int i=0;i<n;i++){
     printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (Expr + i*4), vaddr_read(Expr + i*4, 4));
   }
