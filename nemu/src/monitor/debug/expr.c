@@ -117,8 +117,7 @@ static bool make_token(char *e) {
             break;
           //default: TODO();
         }
-        if(flag)continue;
-        tokens[nr_token++].type =  rules[i].token_type;
+        if(!flag)tokens[nr_token++].type =  rules[i].token_type;
         break;
       }
     }
