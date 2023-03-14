@@ -184,6 +184,7 @@ int dominant_operator_position(int p, int q){
 uint32_t eval(int p, int q){
   if(p > q)return -1;
   else if(p == q){
+        Log("hello?%d\n", cpu.eax);
     switch (tokens[p].type){
     case NUM:
 // bad language
