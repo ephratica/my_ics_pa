@@ -95,11 +95,18 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        
+
         switch (rules[i].token_type) {
+          case NUM:
+          case HEX_NUM:
+          case REG:
+            assert(substr_len < 32);
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            tokens[nr_token].str[substr_len] = '\0';
+            break;
           default: TODO();
         }
-
+        tokens[nr_token++].type =  rules[i].token_type;
         break;
       }
     }
