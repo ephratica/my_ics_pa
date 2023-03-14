@@ -108,6 +108,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             flag = 1;
+            break;
           case NUM:
           case HEX_NUM:
           case REG:
@@ -117,7 +118,7 @@ static bool make_token(char *e) {
             break;
           //default: TODO();
         }
-        if(!flag)tokens[nr_token++].type =  rules[i].token_type;
+        if(!flag)tokens[nr_token++].type = rules[i].token_type;
         break;
       }
     }
