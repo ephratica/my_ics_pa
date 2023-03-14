@@ -86,12 +86,16 @@ static int cmd_x(char *args) {
     return 0;
   }
 
+  unsigned int Expr = 0;
+  bool success = true;
   // 0x only
-  unsigned int expr = 0;
-  sscanf(EXPR, "%x", &expr);
+  //sscanf(EXPR, "%x", &expr);
+
+  // expr
   //printf("expr:%d\n", expr);
+  Expr = expr(EXPR, &success);
   for(int i=0;i<n;i++){
-    printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (expr + i*4), vaddr_read(expr + i*4, 4));
+    printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (Expr + i*4), vaddr_read(Expr + i*4, 4));
   }
   return 0;
 }
