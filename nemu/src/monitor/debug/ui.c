@@ -82,7 +82,7 @@ static int cmd_x(char *args) {
   // get EXPR
   char *EXPR = strtok(NULL, " ");
   char *token = strtok(NULL, " ");
-  while(token)strcat(EXPR, token);
+  while(token != NULL)strcat(EXPR, token), token = strtok(NULL, " ");
   if(EXPR == NULL){
     printf("error! Please enter EXPR\n");
     return 0;
