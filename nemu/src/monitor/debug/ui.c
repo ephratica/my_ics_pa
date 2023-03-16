@@ -69,7 +69,7 @@ static int cmd_info(char *args) {
 static int cmd_p(char *args) {
   int Expr = 0;
   bool success = true;
-  Expr = expr(EXPR, &success);
+  Expr = expr(args, &success);
   if(success){
     printf("expr: %d\t0x%08x\n", Expr, Expr);
   }
