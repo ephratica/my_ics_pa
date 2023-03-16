@@ -20,4 +20,14 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-
+WP* new_wp(){
+  if(free_ == NULL){
+    Log("sorry, watchpointer drained.\n");
+    return NULL;
+  }
+  else{
+    WP *ret = free_;
+    free_ = free_->next;
+    return ret;
+  }
+}
