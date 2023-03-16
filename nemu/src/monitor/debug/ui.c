@@ -67,6 +67,15 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_p(char *args) {
+  int Expr = 0;
+  bool success = true;
+  Expr = expr(EXPR, &success);
+  if(success){
+    printf("expr: %d\t0x%08x\n", Expr, Expr);
+  }
+  else{
+    printf("bad instruction\n");
+  }
   return 0;
 }
 
@@ -96,7 +105,11 @@ static int cmd_x(char *args) {
   // expr
   
   Expr = expr(EXPR, &success);
-  printf("expr:0x%x\n", Expr);
+  if(!success){
+    printf("bad instruction\n");
+    return 0;
+  }
+  //printf("expr:0x%x\n", Expr);
   for(int i=0;i<n;i++){
     printf("addr:\t0x%08x\tvalue:\t0x%08x\n", (Expr + i*4), vaddr_read(Expr + i*4, 4));
   }

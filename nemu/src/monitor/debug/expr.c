@@ -245,6 +245,7 @@ uint32_t eval(int p, int q){
       case MUL:
         return val1 * val2;
       case DIV:
+        if(val2 == 0)Log("error!divide zero.\n"), return -1;
         return val1 / val2;
       case NOT:
         return !val2;
@@ -282,6 +283,23 @@ uint32_t expr(char *e, bool *success) {
     }
   }
 
+  if(!check_paren(p, q)){
+    Log("error! parens do not match.\n");
+    *success = false;
+    return 0;
+  }
   return eval(0, nr_token-1);
   //TODO();
+}
+
+bool check_paren(int p, int q){
+  int cnt=0;
+  for(int i=p;i<=q;i++){
+    if(tokens[i].type == LPAREN)cnt++;
+    if(tokens[i].type == RPAREN){
+      cnt--;
+      if(cnt < 0)return 0;
+    }
+  }
+  return cnt == 0;
 }
