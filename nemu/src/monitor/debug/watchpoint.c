@@ -28,6 +28,14 @@ WP* new_wp(){
   else{
     WP *ret = free_;
     free_ = free_->next;
+    ret->next = head;
+    head = ret;
     return ret;
   }
+}
+
+void free_wp(WP *wp){
+  head = wp->next;
+  wp->next = free_;
+  free_ = wp;
 }
