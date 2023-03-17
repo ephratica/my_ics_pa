@@ -66,9 +66,9 @@ int change_list() {
     uint32_t value;
     value = expr(wp->expr, &flag);
     if (value != wp->value) {
+      printf("%d\t%s\tfrom:0x%08x to 0x%08x\n", wp->NO, wp->expr, wp->value, value);
       wp->value = value;
       list[cnt++] = *wp;
-      printf("%d\t%s\t0x%08x\n", wp->NO, wp->expr, wp->value);
     }
       wp = wp->next;
   }
