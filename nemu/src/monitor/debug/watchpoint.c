@@ -35,7 +35,8 @@ WP* new_wp(){
   }
 }
 
-void free_wp(WP *wp){
+void free_wp(int no){
+  WP *wp = &wp_pool[no];
   head = wp->next;
   wp->next = free_;
   free_ = wp;

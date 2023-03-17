@@ -117,10 +117,24 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_w(char *args) {
+  if(args == NULL){
+    printf("bad instruction\n");
+    return 0;
+  }
+  WP *wp = new_wp();
+  if(wp == NULL)return 0;
+  strcpy(wp->expr, args);
+  bool success = true;
+  wp->value = expr(args, &success);
+
+  Print_wp();
   return 0;
 }
 
 static int cmd_d(char *args) {
+  int no = 0;
+  sscanf(args, "%d", &no);
+  free_wp(no);
   return 0;
 }
 
