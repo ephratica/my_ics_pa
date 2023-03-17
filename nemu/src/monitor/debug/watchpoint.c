@@ -1,7 +1,7 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
 
-//#define NR_WP 32
+#define NR_WP 32
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
@@ -68,6 +68,7 @@ int change_list() {
     if (value != wp->value) {
       wp->value = value;
       list[cnt++] = *wp;
+      printf("%d\t%s\t0x%08x\n", wp->NO, wp->expr, wp->value);
     }
       wp = wp->next;
   }

@@ -2,7 +2,6 @@
 #define __WATCHPOINT_H__
 
 #include "common.h"
-#define NR_WP 32
 
 typedef struct watchpoint {
   int NO;
@@ -19,7 +18,5 @@ WP* new_wp();
 void free_wp(int no);
 void Print_wp();
 int change_list();
-
-// static WP list[NR_WP];
 
 #endif
