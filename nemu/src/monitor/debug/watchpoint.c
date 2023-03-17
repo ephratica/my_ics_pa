@@ -57,7 +57,7 @@ void Print_wp(){
   return;
 }
 
-void change_list() {
+int change_list() {
   WP *wp = head;
   bool flag = true;
   int cnt = 0;
@@ -72,5 +72,5 @@ void change_list() {
       wp = wp->next;
   }
   list[cnt].NO = -1;
-  return ;
+  return cnt;
 }

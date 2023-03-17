@@ -17,6 +17,6 @@ void init_wp_pool();
 WP* new_wp();
 void free_wp(int no);
 void Print_wp();
-void change_list();
+int change_list();
 
 #endif

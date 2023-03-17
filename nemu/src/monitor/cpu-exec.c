@@ -29,6 +29,11 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
+    int n = change_list();
+    if(n){
+      printf("watch points changed.\n");
+      nemu_state = NEMU_STOP;
+    }
 
 #endif
 
