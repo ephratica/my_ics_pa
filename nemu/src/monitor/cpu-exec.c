@@ -35,8 +35,7 @@ void cpu_exec(uint64_t n) {
     if(n){
       printf("watch points changed.\n");
       for(int i=0;i<n;i++){
-        WP *wp = &list[i];
-        printf("%d\t%s\t0x%08x\n", wp->NO, wp->expr, wp->value);
+        printf("%d\t%s\t0x%08x\n", list[i].NO, list[i].expr, list[i].value);
       }
       nemu_state = NEMU_STOP;
     }
