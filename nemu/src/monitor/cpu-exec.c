@@ -1,6 +1,7 @@
 #include "nemu.h"
 #include "monitor/monitor.h"
 #include "monitor/watchpoint.h"
+static WP list[NR_WP];
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -33,6 +34,10 @@ void cpu_exec(uint64_t n) {
     int n = change_list();
     if(n){
       printf("watch points changed.\n");
+      for(int i=0;i<n;i++){
+        WP *wp = &list[i];
+        printf("%d\t%s\t0x%08x\n", wp->NO, wp->expr, wp->value);
+      }
       nemu_state = NEMU_STOP;
     }
 
