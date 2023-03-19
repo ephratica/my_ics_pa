@@ -45,6 +45,10 @@ void free_wp(int no){
       temp->next = head;
       head = temp;
     }
+    else{
+      temp->next = free_;
+      free_ = temp;
+    }
   }
 }
 
