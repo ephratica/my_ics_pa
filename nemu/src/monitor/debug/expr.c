@@ -178,6 +178,7 @@ int dominant_operator_position(int p, int q){
       }
     }
   }
+  while(pos>p && tokens[pos-1].type >= DEREF)pos--;
   assert(pos != -1);
   return pos;
 }
@@ -234,17 +235,8 @@ uint32_t eval(int p, int q){
   else if(check_parentheses(p, q))return eval(p+1, q-1);
   else{
     int op = dominant_operator_position(p, q);
-    uint32_t val2 = eval(op + 1, q);
-    switch (tokens[op].type)
-    {
-      case NOT:
-        return !val2;
-      case NEG:
-        return -val2;
-      default:
-      break;
-    }
     uint32_t val1 = eval(p, op - 1);
+    uint32_t val2 = eval(op + 1, q);
 
     switch (tokens[op].type) {
       case ADD:
@@ -259,6 +251,8 @@ uint32_t eval(int p, int q){
           return -1;
         }
         return val1 / val2;
+      case NOT:
+        return !val2;
       case AND:
         return val1 && val2;
       case OR:
@@ -269,6 +263,8 @@ uint32_t eval(int p, int q){
         return val1 != val2;
       case DEREF:
         return vaddr_read(val2, 4);
+      case NEG:
+        return -val2;
       default:
         assert(0);
     }
