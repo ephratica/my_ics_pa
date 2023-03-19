@@ -41,7 +41,7 @@ void free_wp(int no){
   while(wp != NULL){
     WP *temp = wp;
     wp = wp->next;
-    if(wp->NO != no){
+    if(temp->NO != no){
       temp->next = head;
       head = temp;
     }
