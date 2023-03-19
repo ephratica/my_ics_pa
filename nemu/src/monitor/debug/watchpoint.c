@@ -36,10 +36,16 @@ WP* new_wp(){
 }
 
 void free_wp(int no){
-  WP *wp = &wp_pool[no];
-  head = wp->next;
-  wp->next = free_;
-  free_ = wp;
+  WP *wp = head;
+  head = NULL;
+  while(wp != NULL){
+    WP *temp = wp;
+    wp = wp->next;
+    if(wp->NO != no){
+      temp->next = head;
+      head = temp;
+    }
+  }
 }
 
 void Print_wp(){
