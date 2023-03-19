@@ -10,11 +10,11 @@ enum {
   TK_NOTYPE = 256,  //0
   HEX_NUM, NUM, REG,//1
   RPAREN, LPAREN,   //2
-  ADD, SUB,         //3
-  MUL, DIV,         //4
-  OR,               //5
-  AND,              //6
-  TK_EQ, NEQ,       //7
+  TK_EQ, NEQ,       //3
+  ADD, SUB,         //4
+  MUL, DIV,         //5
+  OR,               //6
+  AND,              //7
   DEREF, NEG, NOT   //8
 
   /* TODO: Add more token types */
@@ -155,11 +155,11 @@ int priority_hash(int e){
   if(e <= TK_NOTYPE)return 0;
   if(e <= REG)return 1;
   if(e <= LPAREN)return 2;
-  if(e <= SUB)return 3;
-  if(e <= DIV)return 4;
-  if(e <= OR)return 5;
-  if(e <= AND)return 6;
-  if(e <= NEQ)return 7;
+  if(e <= NEQ)return 3;
+  if(e <= SUB)return 4;
+  if(e <= DIV)return 5;
+  if(e <= OR)return 6;
+  if(e <= AND)return 7;
   return 8;
 }
 
@@ -178,6 +178,7 @@ int dominant_operator_position(int p, int q){
       }
     }
   }
+  while(pos>p && tokens[pos-1].type >= DEREF)pos--;
   assert(pos != -1);
   return pos;
 }
