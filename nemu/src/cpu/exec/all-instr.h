@@ -21,3 +21,6 @@ make_EHelper(push);
 
 // arith
 make_EHelper(sub);
+
+// logic
+make_EHelper(xor);
