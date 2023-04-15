@@ -18,6 +18,7 @@ make_EHelper(call_rm);
 
 // mov data
 make_EHelper(push);
+make_EHelper(pop);
 
 // arith
 make_EHelper(sub);
