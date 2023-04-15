@@ -9,7 +9,6 @@ make_EHelper(add) {
 make_EHelper(sub) {
   // TODO();
   rtl_sub(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
   
   rtl_xor(&t1, &id_dest->val, &id_src->val);
   rtl_xor(&t2, &id_dest->val, &t0);
@@ -22,6 +21,7 @@ make_EHelper(sub) {
     
   rtl_update_ZFSF(&t0, id_dest->width);
 
+  operand_write(id_dest, &t0);
   print_asm_template2(sub);
 }
 
