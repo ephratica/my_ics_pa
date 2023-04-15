@@ -40,9 +40,12 @@ static make_EHelper(name) { \
 }
 
 /* 0x80, 0x81, 0x83 */
+// make_group(gp1,
+//     EX(add), EX(or), EMPTY, EX(sbb),
+//     EX(and), EX(sub), EX(xor), EX(cmp))
 make_group(gp1,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EX(sub), EMPTY, EMPTY)
+    EX(and), EX(sub), EX(xor), EMPTY)
 
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
