@@ -254,7 +254,7 @@ uint32_t eval(int p, int q){
       case NOT:
         return !val2;
       case AND:
-        printf("val1:%d, val2%d\n", val1, val2);
+        printf("val1:%d, val2%d, %d\n", val1, val2, val1 && val2);
         return val1 && val2;
       case OR:
         return val1 || val2;
