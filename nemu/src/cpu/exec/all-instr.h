@@ -23,6 +23,7 @@ make_EHelper(lea);
 
 // arith
 make_EHelper(sub);
+make_EHelper(add);
 
 // logic
 make_EHelper(xor);
