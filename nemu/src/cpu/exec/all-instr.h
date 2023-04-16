@@ -29,6 +29,7 @@ make_EHelper(cmp);
 // logic
 make_EHelper(xor);
 make_EHelper(and);
+make_EHelper(setcc);
 
 // special
 make_EHelper(nop);
