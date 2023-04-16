@@ -20,6 +20,8 @@ make_EHelper(call_rm);
 make_EHelper(push);
 make_EHelper(pop);
 make_EHelper(lea);
+make_EHelper(movzx);
+make_EHelper(movsx);
 
 // arith
 make_EHelper(sub);
