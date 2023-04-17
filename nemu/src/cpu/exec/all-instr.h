@@ -28,6 +28,7 @@ make_EHelper(sub);
 make_EHelper(add);
 make_EHelper(cmp);
 make_EHelper(adc);
+make_EHelper(dec);
 
 // logic
 make_EHelper(xor);
