@@ -27,6 +27,7 @@ make_EHelper(movsx);
 make_EHelper(sub);
 make_EHelper(add);
 make_EHelper(cmp);
+make_EHelper(adc);
 
 // logic
 make_EHelper(xor);
