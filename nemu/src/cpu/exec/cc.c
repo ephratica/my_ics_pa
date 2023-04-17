@@ -40,11 +40,11 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
       // TODO();
       rtl_get_SF(dest);
       rtl_get_OF(&t0);
-      // printf("SF:0x%x OF:0x%x\n", *dest, t0);
+      printf("SF:0x%x OF:0x%x\n", *dest, t0);
       rtl_xor(dest, dest, &t0);
       rtl_get_ZF(&t0);
       rtl_or(dest, dest, &t0);
-      // printf("dest:0x%x\n", *dest);
+      printf("dest:0x%x\n", *dest);
       break;
     default: panic("should not reach here");
     case CC_P: panic("n86 does not have PF");
