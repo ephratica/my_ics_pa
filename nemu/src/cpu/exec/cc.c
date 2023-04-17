@@ -40,6 +40,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
       // TODO();
       rtl_get_SF(dest);
       rtl_get_OF(&t0);
+      printf("SF:0x%x OF:0x%x\n", *dest, t0);
       rtl_xor(dest, dest, &t0);
       rtl_get_ZF(&t0);
       rtl_or(dest, dest, &t0);
