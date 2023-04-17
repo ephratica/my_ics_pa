@@ -22,6 +22,8 @@ make_EHelper(pop);
 make_EHelper(lea);
 make_EHelper(movzx);
 make_EHelper(movsx);
+make_EHelper(cltd);
+make_EHelper(cwtl);
 
 // arith
 make_EHelper(sub);
