@@ -2,9 +2,9 @@
 
 make_EHelper(test) {
   // TODO();
-  rtl_and(&t0, &id_dest->val, &id_src->val);
+  rtl_and(&t1, &id_dest->val, &id_src->val);
   // printf("t0:0x%x width:%d\n", t0, id_dest->width);
-  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_update_ZFSF(&t1, id_dest->width);
   
   t0 = 0;
   rtl_set_CF(&t0);
@@ -14,11 +14,11 @@ make_EHelper(test) {
 
 make_EHelper(and) {
   // TODO();
-	rtl_and(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
+	rtl_and(&t1, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t1);
   // printf("result:0x%x\n", t0);
 
-	rtl_update_ZFSF(&t0, id_dest->width);
+	rtl_update_ZFSF(&t1, id_dest->width);
 
   t0 = 0;
   rtl_set_CF(&t0);
@@ -28,10 +28,10 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
   // TODO();
-  rtl_xor(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
+  rtl_xor(&t1, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t1);
 
-  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_update_ZFSF(&t1, id_dest->width);
 
   t0 = 0;
   rtl_set_CF(&t0);
@@ -41,11 +41,11 @@ make_EHelper(xor) {
 
 make_EHelper(or) {
   // TODO();
-	rtl_or(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
+	rtl_or(&t1, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t1);
   // printf("result:0x%x\n", t0);
 
-	rtl_update_ZFSF(&t0, id_dest->width);
+	rtl_update_ZFSF(&t1, id_dest->width);
 
   t0 = 0;
   rtl_set_CF(&t0);
@@ -68,18 +68,18 @@ make_EHelper(sar) {
 make_EHelper(shl) {
   // TODO();
   // unnecessary to update CF and OF in NEMU
-  rtl_shl(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
-  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_shl(&t1, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t1);
+  rtl_update_ZFSF(&t1, id_dest->width);
   print_asm_template2(shl);
 }
 
 make_EHelper(shr) {
   // TODO();
   // unnecessary to update CF and OF in NEMU
-  rtl_shr(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
-  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_shr(&t1, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t1);
+  rtl_update_ZFSF(&t1, id_dest->width);
   print_asm_template2(shr);
 }
 
