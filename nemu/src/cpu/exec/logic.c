@@ -3,7 +3,7 @@
 make_EHelper(test) {
   // TODO();
   rtl_and(&t0, &id_dest->val, &id_src->val);
-  printf("t0:0x%x\n", t0);
+  printf("t0:0x%x width:%d\n", t0, id_dest->width);
   rtl_update_ZFSF(&t0, id_dest->width);
   
   t0 = 0;
