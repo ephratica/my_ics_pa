@@ -9,11 +9,11 @@ make_EHelper(jmp) {
 
 make_EHelper(jcc) {
   // the target address is calculated at the decode stage
-  uint8_t subcode = decoding.opcode & 0xf;
-  rtl_setcc(&t2, subcode);
+  uint8_t code = decoding.opcode & 0xf;
+  rtl_setcc(&t2, code);
   decoding.is_jmp = t2;
 
-  print_asm("j%s %x", get_cc_name(subcode), decoding.jmp_eip);
+  print_asm("j%s %x", get_cc_name(code), decoding.jmp_eip);
 }
 
 make_EHelper(jmp_rm) {
