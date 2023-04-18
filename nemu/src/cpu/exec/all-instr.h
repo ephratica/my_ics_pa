@@ -40,6 +40,7 @@ make_EHelper(imul3);
 make_EHelper(div);
 make_EHelper(idiv);
 make_EHelper(sbb);
+make_EHelper(neg);
 
 // logic
 make_EHelper(xor);
