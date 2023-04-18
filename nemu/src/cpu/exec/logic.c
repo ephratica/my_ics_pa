@@ -98,3 +98,19 @@ make_EHelper(not) {
   operand_write(id_dest, &t0);
   print_asm_template1(not);
 }
+
+make_EHelper(rol){
+  rtl_mv(&t2, &id_dest->val);
+  for (int i=0;i<id_src->val;i++) {
+    rtl_msb(&t1, &t2, id_dest->width);
+    rtl_shli(&t2, &t2, 1);
+    rtl_or(&t2, &t2, &t1);
+  }
+  operand_write(id_dest, &t2);
+  rtl_set_CF(&t1);
+  rtl_msb(&t2, &t2, id_dest->width);
+  rtl_xor(&t1, &t2, &t1);
+  rtl_set_OF(&t1);
+  
+  print_asm_template2(rol);
+}
