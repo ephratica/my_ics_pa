@@ -8,7 +8,9 @@ extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
 make_EHelper(lidt) {
   // TODO();
   assert(!decoding.is_operand_size_16);
+  printf("limit: 0x%x\n", cpu.idtr.limit);
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
+  printf("limit: 0x%x\n", cpu.idtr.limit);
   cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
 
   print_asm_template1(lidt);
