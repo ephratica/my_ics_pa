@@ -12,7 +12,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtl_push(&cpu.cs);
   rtl_push(&ret_addr);
 
-  uint32_t idt_addr = cpu.idtr.base + NO * 8;
+  uint32_t idt_addr = cpu.idtr.base + NO*8;
   uint32_t eip_low = vaddr_read(idt_addr, 4);
   uint32_t eip_high = vaddr_read(idt_addr + 4, 4);
 
