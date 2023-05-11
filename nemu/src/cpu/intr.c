@@ -7,7 +7,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
    */
 
   // TODO();
-  // assert(NO <= cpu.idtr.limit);
+  assert(NO <= cpu.idtr.limit);
   rtl_push(&cpu.eflags);
   rtl_push(&cpu.cs);
   rtl_push(&ret_addr);
