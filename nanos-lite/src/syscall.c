@@ -9,6 +9,7 @@ _RegSet* do_syscall(_RegSet *r) {
   a[3] = SYSCALL_ARG4(r);
 
   switch (a[0]) {
+    Log("a[0]: %d\n", (int)a[0]);
     case SYS_none:
     Log("0\n");
 			SYSCALL_ARG1(r) = 1;
