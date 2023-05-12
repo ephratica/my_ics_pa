@@ -29,7 +29,7 @@ _RegSet* do_syscall(_RegSet *r) {
 			  }
         break;
       default:
-        Log("%d\n", (int)a[1]);
+        Log("a[1]: %d\n", (int)a[1]);
         break;
       }
 
