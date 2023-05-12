@@ -16,11 +16,11 @@ _RegSet* do_syscall(_RegSet *r) {
 			SYSCALL_ARG1(r) = 1;
 			break;
     case SYS_exit:
-    Log("1\n");
+    Log("4\n");
       _halt(a[1]);
       break;
     case SYS_write:
-    Log("2\n");
+    Log("3\n");
       switch ((int)a[1]){
         case 1:
         case 2:
@@ -35,7 +35,14 @@ _RegSet* do_syscall(_RegSet *r) {
           break;
       }
       break;
-
+    case SYS_open:
+    Log("1\n");
+			SYSCALL_ARG1(r) = 1;
+			break;
+    case SYS_read:
+    Log("3\n");
+			SYSCALL_ARG1(r) = 1;
+			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
