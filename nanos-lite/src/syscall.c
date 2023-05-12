@@ -19,18 +19,19 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     case SYS_write:
       switch ((int)a[1]){
-      case 1:
-      case 2:
-        for(int i = 0; i < (size_t)a[3]; i++) {
-					_putc(((char*)a[2])[i]);
-          Log("%c", ((char*)a[2])[i]);
-          Log("\n");
-			  }
-        break;
-      default:
-        Log("a[1]: %d\n", (int)a[1]);
-        break;
+        case 1:
+        case 2:
+          for(int i = 0; i < (size_t)a[3]; i++) {
+            _putc(((char*)a[2])[i]);
+            Log("%c", ((char*)a[2])[i]);
+            Log("\n");
+          }
+          break;
+        default:
+          Log("a[1]: %d\n", (int)a[1]);
+          break;
       }
+      break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }

@@ -1,7 +1,11 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdint.h>
+
+extern int _syscall_(int, intptr_t, intptr_t, intptr_t);
 
 int main() {
+  _syscall_(3, (intptr_t)1, (intptr_t)0, (intptr_t)0);
   write(1, "Hello World!\n", 13);
   int i = 2;
   volatile int j = 0;
