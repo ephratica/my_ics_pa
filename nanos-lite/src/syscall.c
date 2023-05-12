@@ -20,7 +20,7 @@ _RegSet* do_syscall(_RegSet *r) {
       {
       case 1:
       case 2:
-        for(int i = 0; i < a[3]; i++) {
+        for(int i = 0; i < (size_t)a[3]; i++) {
 					_putc(((char*)a[2])[i]);
 			  }
         break;
