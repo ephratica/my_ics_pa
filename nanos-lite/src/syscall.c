@@ -10,9 +10,11 @@ _RegSet* do_syscall(_RegSet *r) {
 
   switch (a[0]) {
     case SYS_none:
+    Log("0\n");
 			SYSCALL_ARG1(r) = 1;
 			break;
     case SYS_exit:
+    Log("1\n");
       _halt(a[1]);
       break;
     case SYS_write:
@@ -26,8 +28,8 @@ _RegSet* do_syscall(_RegSet *r) {
           Log("\n");
 			  }
         break;
-      
       default:
+        Log("%d\n", (int)a[1]);
         break;
       }
 
