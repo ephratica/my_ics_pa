@@ -8,8 +8,9 @@ _RegSet* do_syscall(_RegSet *r) {
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
 
+  Log("a[0]: %d\n", (int)a[0]);
+
   switch (a[0]) {
-    Log("a[0]: %d\n", (int)a[0]);
     case SYS_none:
     Log("0\n");
 			SYSCALL_ARG1(r) = 1;
