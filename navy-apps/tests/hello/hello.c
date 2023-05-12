@@ -8,8 +8,8 @@ int main() {
   _syscall_(0, (intptr_t)1, (intptr_t)0, (intptr_t)0);
   _syscall_(1, (intptr_t)1, (intptr_t)0, (intptr_t)0);
   _syscall_(2, (intptr_t)1, (intptr_t)0, (intptr_t)0);
-  _syscall_(3, (intptr_t)1, (intptr_t)0, (intptr_t)0);
   write(1, "Hello World!\n", 13);
+  _syscall_(3, (intptr_t)1, (intptr_t)0, (intptr_t)0);
   int i = 2;
   volatile int j = 0;
   while (1) {
