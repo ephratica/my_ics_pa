@@ -16,12 +16,14 @@ _RegSet* do_syscall(_RegSet *r) {
       _halt(a[1]);
       break;
     case SYS_write:
-      switch (a[1])
+      switch ((int)a[1])
       {
       case 1:
       case 2:
         for(int i = 0; i < (size_t)a[3]; i++) {
 					_putc(((char*)a[2])[i]);
+          Log("%c", ((char*)a[2])[i]);
+          Log("\n");
 			  }
         break;
       
