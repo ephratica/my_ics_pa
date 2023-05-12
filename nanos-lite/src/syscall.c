@@ -40,7 +40,7 @@ _RegSet* do_syscall(_RegSet *r) {
 			SYSCALL_ARG1(r) = 1;
 			break;
     case SYS_read:
-    Log("3\n");
+    Log("2\n");
 			SYSCALL_ARG1(r) = 1;
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
