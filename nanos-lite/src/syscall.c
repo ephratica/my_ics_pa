@@ -20,7 +20,7 @@ _RegSet* do_syscall(_RegSet *r) {
       _halt(a[1]);
       break;
     case SYS_write:
-    // Log("3\n");
+    Log("write. len:%d\n", (size_t)a[3]);
       switch ((int)a[1]){
         case 1:
         case 2:
