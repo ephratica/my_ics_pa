@@ -20,7 +20,7 @@ _RegSet* do_syscall(_RegSet *r) {
       _halt(a[1]);
       break;
     case SYS_write:
-    Log("write. len:%d\n", (size_t)a[3]);
+    // Log("write. len:%d\n", (size_t)a[3]);
       switch ((int)a[1]){
         case 1:
         case 2:
@@ -37,7 +37,7 @@ _RegSet* do_syscall(_RegSet *r) {
       }
       break;
     case SYS_brk:
-    Log("brk\n");
+    // Log("brk\n");
       // _heap.end = (void *)a[1];
       SYSCALL_ARG1(r) = 0;
       break;
