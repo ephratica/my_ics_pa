@@ -36,7 +36,7 @@ intptr_t program_break = (intptr_t)&end;
 
 void *_sbrk(intptr_t increment){
   intptr_t origin = program_break, addr = program_break + increment;
-  Log("sbrk?\n");
+  // Log("sbrk?\n");
   if (_syscall_(SYS_brk, addr, 0, 0) != 0) {
     return (void *)-1;
 	}

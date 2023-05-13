@@ -1,7 +1,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+typedef int			intptr_t;
+extern void* _sbrk(intptr_t increment);
+
 int main() {
+  _sbrk(0);
   write(1, "Hello World!\n", 13);
   int i = 2;
   volatile int j = 0;
