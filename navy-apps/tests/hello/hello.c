@@ -11,9 +11,9 @@ int main() {
   volatile int j = 0;
   while (j < 35000) {
     j ++;
-    if (j == 10000) {
+    if (j % 10000 == 0) {
       printf("Hello World for the %dth time\n", i ++);
-      j = 0;
+      // j = 0;
     }
   }
   return 0;
