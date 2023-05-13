@@ -29,6 +29,7 @@ _RegSet* do_syscall(_RegSet *r) {
             // Log("%c", ((char*)a[2])[i]);
             // Log("\n");
           }
+          SYSCALL_ARG1(r) = (size_t)a[3];
           break;
         default:
           // Log("a[1]: %d\n", (int)a[1]);
