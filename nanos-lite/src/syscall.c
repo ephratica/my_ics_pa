@@ -39,7 +39,7 @@ _RegSet* do_syscall(_RegSet *r) {
 			SYSCALL_ARG1(r) = fs_open((char *)a[1], a[2], a[3]);
 			break;
     case SYS_read:
-    // Log("2\n");
+    Log("read\n");
 			SYSCALL_ARG1(r) = fs_read(a[1], (void *)a[2], a[3]);
 			break;
     case SYS_lseek:
