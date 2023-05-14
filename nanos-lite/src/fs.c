@@ -61,11 +61,12 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     Log("FD_DISPINFO\n");
 			break;
 		default:
-    Log("%d %d %d\n", (int)file_table[fd].open_offset, len, (int)f_size);
+    
       if(file_table[fd].open_offset + len > f_size || len == 0){
         return 0;
       }
       len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
+      Log("%d %d %d\n", (int)file_table[fd].open_offset, len, (int)f_size);
 			ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
       assert(file_table[fd].open_offset <= f_size);
