@@ -2,6 +2,7 @@
 
 extern void ramdisk_write(const void *buf, off_t offset, size_t len);
 extern void ramdisk_read(void *buf, off_t offset, size_t len);
+extern size_t events_read(void *buf, size_t len);
 
 typedef struct {
   char *name;
@@ -53,14 +54,18 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 		case FD_STDOUT:
 		case FD_FB:
 			break;
+    case FD_EVENTS:
+    Log("FD_EVENTS\n");
+			break;
+		case FD_DISPINFO:	
+    Log("FD_DISPINFO\n");
+			break;
 		default:
     Log("%d %d %d\n", (int)file_table[fd].open_offset, len, (int)f_size);
       if(file_table[fd].open_offset + len > f_size){
         return 0;
       }
-      
       len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
-      
 			ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
       assert(file_table[fd].open_offset <= f_size);
