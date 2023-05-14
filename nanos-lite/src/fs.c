@@ -34,7 +34,7 @@ int fs_open(const char *pathname, int flags, int mode){
   for(int i = 0; i < NR_FILES; i++){
     if(strcmp(pathname, file_table[i].name) == 0)return i;
   }
-  Log("no such file error\n");
+  Log("no such file %s\n", pathname);
   assert(0);
   return 0;
 }
