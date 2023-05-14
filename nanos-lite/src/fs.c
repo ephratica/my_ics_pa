@@ -32,7 +32,10 @@ void init_fs() {
 
 int fs_open(const char *pathname, int flags, int mode){
   for(int i = 0; i < NR_FILES; i++){
-    if(strcmp(pathname, file_table[i].name) == 0)return i;
+    if(strcmp(pathname, file_table[i].name) == 0){
+      file_table[i].open_offset = 0;
+      return i;
+    }
   }
   Log("no such file %s\n", pathname);
   assert(0);
@@ -51,12 +54,12 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 		case FD_FB:
 			break;
 		default:
-      Log("%d %d\n", (int)file_table[fd].open_offset + len, (int)f_size);
+      // Log("%d %d\n", (int)file_table[fd].open_offset + len, (int)f_size);
       if(file_table[fd].open_offset + len > f_size){
         return 0;
       }
       len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
-      Log("ramdisk read\n");
+      // Log("ramdisk read\n");
 			ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
       assert(file_table[fd].open_offset <= f_size);
