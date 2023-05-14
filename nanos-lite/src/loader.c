@@ -12,6 +12,7 @@ extern size_t get_ramdisk_size();
 uintptr_t loader(_Protect *as, const char *filename) {
   // TODO();
   // ramdisk_read(DEFAULT_ENTRY, 0, get_ramdisk_size());
+  Log("filename: %s\n", filename);
   int fd = fs_open(filename, 0, 0);
 	Log("fd: %d\n", fd);
 	fs_read(fd, DEFAULT_ENTRY, fs_filesz(fd)); 
