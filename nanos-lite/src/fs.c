@@ -3,6 +3,8 @@
 extern void ramdisk_write(const void *buf, off_t offset, size_t len);
 extern void ramdisk_read(void *buf, off_t offset, size_t len);
 extern size_t events_read(void *buf, size_t len);
+extern void dispinfo_read(void *buf, off_t offset, size_t len);
+void fb_write(const void *buf, off_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -53,12 +55,16 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 	switch(fd) {
 		case FD_STDOUT:
 		case FD_FB:
+    Log("FD_FB\n");
 			break;
     case FD_EVENTS:
     Log("FD_EVENTS\n");
 			break;
 		case FD_DISPINFO:	
     Log("FD_DISPINFO\n");
+      len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
+			dispinfo_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
 			break;
 		default:
       len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
@@ -79,6 +85,17 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
 					_putc(((char*)buf)[i]);
 			}
 			break;
+    case FD_FB:
+    Log("FD_FB\n");
+			break;
+    case FD_EVENTS:
+    Log("FD_EVENTS\n");
+      fb_write(buf, file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
+			break;
+		case FD_DISPINFO:	
+    Log("FD_DISPINFO\n");
+      break;
 		default:
       if(file_table[fd].open_offset + len > f_size)
         return 0;
