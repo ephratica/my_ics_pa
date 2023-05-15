@@ -58,7 +58,8 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     Log("FD_FB\n");
 			break;
     case FD_EVENTS:
-    Log("FD_EVENTS\n");
+    // Log("FD_EVENTS\n");
+      len = events_read((void *)buf, len);
 			break;
 		case FD_DISPINFO:	
     Log("FD_DISPINFO\n");
