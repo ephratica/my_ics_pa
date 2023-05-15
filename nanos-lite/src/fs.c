@@ -86,15 +86,15 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
 			}
 			break;
     case FD_FB:
-    Log("FD_FB\n");
-			break;
-    case FD_EVENTS:
-    Log("FD_EVENTS\n");
+    // Log("FD_FB\n");
       fb_write(buf, file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
 			break;
+    case FD_EVENTS:
+    // Log("FD_EVENTS\n");
+			break;
 		case FD_DISPINFO:	
-    Log("FD_DISPINFO\n");
+    // Log("FD_DISPINFO\n");
       break;
 		default:
       if(file_table[fd].open_offset + len > f_size)
