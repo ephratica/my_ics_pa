@@ -32,8 +32,8 @@ int main() {
 
   // uint32_t entry = loader(NULL, "/bin/text");
   // uint32_t entry = loader(NULL, "/bin/bmptest");
-  uint32_t entry = loader(NULL, "/bin/events");
-  // uint32_t entry = loader(NULL, "/bin/pal");
+  // uint32_t entry = loader(NULL, "/bin/events");
+  uint32_t entry = loader(NULL, "/bin/pal");
 
   ((void (*)(void))entry)();
 
