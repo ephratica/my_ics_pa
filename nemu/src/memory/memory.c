@@ -48,7 +48,11 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
   if(cpu.PG == 1){
     uint32_t* base1 = (uint32_t*)get_pte_addr(cpu.cr3);
     uint32_t pde = (uint32_t)paddr_read((uint32_t)(get_pdx(addr) + base1), 4);
-    assert(pde & 0x1);
+    if (!(pde & 0x1)) {
+			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
+			Log("pde = 0x%x, pde_base = 0x%x", pde, (uint32_t)base1);
+			assert(0);
+		}
 
     uint32_t* base2 = (uint32_t*)get_pte_addr(pde);
     uint32_t pte = (uint32_t)paddr_read((uint32_t)(get_pdx(addr) + base2), 4);
