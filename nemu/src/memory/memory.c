@@ -46,11 +46,11 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t page_translate(vaddr_t addr, bool iswrite){
   if(cpu.PG == 1){
-    // uint32_t base1 = (uint32_t)cpu.cr3;
-    // uint32_t pde = (uint32_t)paddr_read((uint32_t)((get_pdx(addr)) + base1), 4);
-    uint32_t pde_base = (uint32_t)cpu.cr3;
+    uint32_t base1 = (uint32_t)cpu.cr3;
+    uint32_t pde = (uint32_t)paddr_read((uint32_t)((get_pdx(addr)) + base1), 4);
+    // uint32_t pde_base = (uint32_t)cpu.cr3;
 		// paddr_t pde_address = pde_base + ((addr >> 22) << 2);
-		uint32_t pde = (uint32_t)paddr_read((uint32_t)(pde_base + get_pdx(addr)), 4);
+		// uint32_t pde = (uint32_t)paddr_read((uint32_t)(pde_base + get_pdx(addr)), 4);
     if (!(pde & 0x1)) {
 			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
 			// Log("pde = 0x%x, pde_base = 0x%x, index = 0x%x", pde, (uint32_t)base1, (uint32_t)(get_pdx(addr) + base1));
@@ -70,7 +70,7 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
       pde |= 0x40;
 			pte |= 0x40;
 		}
-    paddr_write((uint32_t)(get_pdx(addr) + pde_base), 4, pde);
+    paddr_write((uint32_t)(get_pdx(addr) + base1), 4, pde);
 		paddr_write((uint32_t)(get_ptx(addr) + base2), 4, pte);
 
     return page_address;
