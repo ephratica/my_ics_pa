@@ -11,6 +11,8 @@ void init_irq(void);
 void init_fs(void);
 uint32_t loader(_Protect *, const char *);
 
+extern void load_prog(const char *);
+
 int main() {
 #ifdef HAS_PTE
   init_mm();
@@ -33,9 +35,11 @@ int main() {
   // uint32_t entry = loader(NULL, "/bin/text");
   // uint32_t entry = loader(NULL, "/bin/bmptest");
   // uint32_t entry = loader(NULL, "/bin/events");
-  uint32_t entry = loader(NULL, "/bin/pal");
+  // uint32_t entry = loader(NULL, "/bin/pal");
 
-  ((void (*)(void))entry)();
+  // ((void (*)(void))entry)();
+
+  load_prog("/bin/dummy");
 
   panic("Should not reach here");
 }
