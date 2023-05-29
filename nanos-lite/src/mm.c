@@ -24,9 +24,10 @@ int mm_brk(uint32_t new_brk) {
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
 
+      int len = new_brk - current->max_brk;
 			void* va = (void*)PGROUNDUP(current->max_brk);
-      void* end = (void*)PGROUNDDOWN(current->max_brk);
-      for (; va <= end; va += PGSIZE){
+      // void* end = (void*)PGROUNDDOWN(current->max_brk);
+      for (; len > 0; va += PGSIZE, len -= PGSIZE){
         void* page = new_page();
         _map(&current->as, va, page);
       }
