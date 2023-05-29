@@ -21,7 +21,7 @@ uint32_t get_pdx(uint32_t va){
 }
 
 uint32_t get_ptx(uint32_t va){
-  return (va & 0x003ff000) >> 10;
+  return ((va >> 12) & 0x3ff) << 2;
 }
 
 uint32_t get_off(uint32_t va){
@@ -55,7 +55,7 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
 		}
 
     uint32_t* base2 = (uint32_t*)get_pte_addr(pde);
-    uint32_t pte = (uint32_t)paddr_read((uint32_t)(get_ptx(addr) + base2), 4);
+    uint32_t pte = (uint32_t)paddr_read((uint32_t)(get_ptx(pde) + base2), 4);
     assert(pte & 0x1);
 
     pde |= 0x20;
