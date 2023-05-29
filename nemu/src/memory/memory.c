@@ -25,7 +25,7 @@ uint32_t get_ptx(uint32_t va){
 }
 
 uint32_t get_off(uint32_t va){
-  return (va & 0xfff);
+  return (va & 0x00000fff);
 }
 
 uint32_t paddr_read(paddr_t addr, int len) {
