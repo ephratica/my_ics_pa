@@ -67,7 +67,7 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
 			pte |= 0x40;
 		}
     paddr_write((uint32_t)(get_pdx(addr) + base1), 4, pde);
-		paddr_write((uint32_t)(get_pdx(addr) + base2), 4, pte);
+		paddr_write((uint32_t)(get_ptx(addr) + base2), 4, pte);
 
     return page_address;
   }
