@@ -21,7 +21,7 @@ uint32_t get_pdx(uint32_t va){
 }
 
 uint32_t get_ptx(uint32_t va){
-  return ((va >> 12) & 0x3ff) << 2;
+  return (va & 0x003ff000) >> 10;
 }
 
 uint32_t get_off(uint32_t va){
@@ -46,7 +46,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t page_translate(vaddr_t addr, bool iswrite){
   if(cpu.PG == 1){
-    uint32_t* base1 = (uint32_t*)cpu.cr3;
+    uint32_t base1 = (uint32_t)cpu.cr3;
     uint32_t pde = (uint32_t)paddr_read((uint32_t)(get_pdx(addr) + base1), 4);
     if (!(pde & 0x1)) {
 			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
