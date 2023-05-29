@@ -16,6 +16,25 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uint32_t new_brk) {
+  if (current->cur_brk == 0) {
+    current->cur_brk = current->max_brk = new_brk;
+  }
+  else {
+    if (new_brk > current->max_brk) {
+      // TODO: map memory region [current->max_brk, new_brk)
+      // into address space current->as
+
+			void* va = (void*)PGROUNDUP(current->max_brk);
+      void* end = (void*)PGROUNDDOWN(current->max_brk);
+      for (; va <= end; va += PGSIZE){
+        void* page = new_page();
+        _map(&current->as, va, page);
+      }
+      current->max_brk = new_brk;
+    }
+    current->cur_brk = new_brk;
+  }
+
   return 0;
 }
 
