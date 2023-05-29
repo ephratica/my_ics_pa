@@ -12,8 +12,8 @@ uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
 
-uint32_t get_pte_addr(uint32_t pte){
-  return (pte & 0xfffff000);
+uint32_t get_pte_addr(uint32_t pde){
+  return (pde & 0xfffff000);
 }
 
 uint32_t get_pdx(uint32_t va){
@@ -55,8 +55,10 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
 		}
 
     uint32_t* base2 = (uint32_t*)get_pte_addr(pde);
-    uint32_t pte = (uint32_t)paddr_read((uint32_t)(get_ptx(pde) + base2), 4);
+    uint32_t pte = (uint32_t)paddr_read((uint32_t)(get_ptx(addr) + base2), 4);
     assert(pte & 0x1);
+
+    paddr_t page_address = get_pte_addr(pte) | get_off(addr);
 
     pde |= 0x20;
     pte |= 0x20;
@@ -67,7 +69,7 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
     paddr_write((uint32_t)(get_pdx(addr) + base1), 4, pde);
 		paddr_write((uint32_t)(get_pdx(addr) + base2), 4, pte);
 
-    return get_pte_addr(pte) | get_off(addr);
+    return page_address;
   }
   else{
     return addr;
