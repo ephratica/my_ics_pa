@@ -21,7 +21,7 @@ uint32_t get_pdx(uint32_t va){
 }
 
 uint32_t get_ptx(uint32_t va){
-  return ((va >> 12) & 0x3ff) << 2;
+  return ((va & 0x003ff000) >> 10);
 }
 
 uint32_t get_off(uint32_t va){
