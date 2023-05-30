@@ -27,15 +27,21 @@ void load_prog(const char *filename) {
 }
 
 _RegSet* schedule(_RegSet *prev) {
-  // printf("schedule\n");
   // save the context pointer
   if (current)current->tf = prev;
 
-  // always select pcb[0] as the new process
-  current = &pcb[0];
-
   // TODO: switch to the new address space,
   // then return the new context
+
+  static int count = 0;
+  if(current == &pcb[0])count ++;
+  else current = &pcb[0];
+
+  if(count == 5000){
+    current = &pcb[1];
+    count = 0;
+  }
+
   _switch(&current->as); 
   return current->tf;
 }
