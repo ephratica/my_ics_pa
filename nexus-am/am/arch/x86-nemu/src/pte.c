@@ -66,26 +66,16 @@ void _switch(_Protect *p) {
 }
 
 void _map(_Protect *p, void *va, void *pa) {
-  // PDE *dir_base = (PDE *)(p->ptr);
-  // uint32_t page = PTX(va);
-  // uint32_t dir = PDX(va);
-	// if (!(dir_base[dir] & 0x1)) {
-	// 	PTE *uptab = (PTE *)(palloc_f());
-	// 	dir_base[dir] = (uint32_t)uptab | PTE_P;
-	// }
-	// PTE * page_base = (PTE *)PTE_ADDR(dir_base[dir]);
-	// PTE * pte = &page_base[page];
-	// *pte = (uint32_t)pa | PTE_P;
-
-  PDE *pde = ((PDE *)p->ptr) + PDX(va);
-  PTE *ptab;
-  if ((*pde & PTE_P) == 0) {
-    ptab = (PTE *)(palloc_f());
-    *pde = ((uint32_t)ptab & ~0xfff) | PTE_P;   
-  }
-  else 
-    ptab = (PTE *)PTE_ADDR(*pde);
-  ptab[PTX(va)] = ((uint32_t)pa & ~0xfff) | PTE_P;
+  PDE *dir_base = (PDE *)(p->ptr);
+  uint32_t page = PTX(va);
+  uint32_t dir = PDX(va);
+	if (!(dir_base[dir] & 0x1)) {
+		PTE *uptab = (PTE *)(palloc_f());
+		dir_base[dir] = (uint32_t)uptab | PTE_P;
+	}
+	PTE * page_base = (PTE *)PTE_ADDR(dir_base[dir]);
+	PTE * pte = &page_base[page];
+	*pte = (uint32_t)pa | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
