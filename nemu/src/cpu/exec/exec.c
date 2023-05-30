@@ -1,7 +1,7 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
-#define TIMER_IRQ 32
+#define TIMER_IRQ 0x20
 
 extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
 
@@ -258,7 +258,7 @@ void exec_wrapper(bool print_flag) {
 #endif
 
   if (cpu.INTR & cpu.IF) {
-    Log("handle inerrupt\n");
+    // Log("handle inerrupt\n");
     cpu.INTR = false;
     raise_intr(TIMER_IRQ, cpu.eip);
     update_eip();
