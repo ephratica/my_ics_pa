@@ -12,17 +12,33 @@ extern size_t get_ramdisk_size();
 extern void _map(_Protect *p, void *va, void *pa);
 
 uintptr_t loader(_Protect *as, const char *filename) {
-  int fd = fs_open(filename, 0, 0);
+  // int fd = fs_open(filename, 0, 0);
 
-  int pages = fs_filesz(fd) / PGSIZE + 1;
-  void *pa, *va = DEFAULT_ENTRY;
+  // int pages = fs_filesz(fd) / PGSIZE + 1;
+  // void *pa, *va = DEFAULT_ENTRY;
   
-  for (int i = 0; i < pages; ++i, va += PGSIZE) {
-    pa = new_page();
-    fs_read(fd, pa, PGSIZE);
-    _map(as, va, pa);
-  }
-	fs_read(fd, DEFAULT_ENTRY, fs_filesz(fd)); 
+  // for (int i = 0; i < pages; ++i, va += PGSIZE) {
+  //   pa = new_page();
+  //   fs_read(fd, pa, PGSIZE);
+  //   _map(as, va, pa);
+  // }
+	// fs_read(fd, DEFAULT_ENTRY, fs_filesz(fd)); 
+	// fs_close(fd);
+
+  int fd = fs_open(filename, 0, 0);
+	int filesize = fs_filesz(fd);
+	void *vaddr, *page;
+	vaddr = DEFAULT_ENTRY;
+
+	while (filesize > 0) {
+		page = new_page();
+		_map(as, vaddr, page);
+		fs_read(fd, page, PGSIZE);
+		vaddr += PGSIZE;
+		filesize = filesize - PGSIZE;
+		//printf("filesize = %x\n", filesize);
+	}
 	fs_close(fd);
+
   return (uintptr_t)DEFAULT_ENTRY;
 }
