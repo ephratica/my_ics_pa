@@ -55,14 +55,14 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 	switch(fd) {
 		case FD_STDOUT:
 		case FD_FB:
-    Log("FD_FB\n");
+    // Log("FD_FB\n");
 			break;
     case FD_EVENTS:
     // Log("FD_EVENTS\n");
       len = events_read((void *)buf, len);
 			break;
 		case FD_DISPINFO:	
-    Log("FD_DISPINFO\n");
+    // Log("FD_DISPINFO\n");
       len = len < f_size - file_table[fd].open_offset ? len: f_size - file_table[fd].open_offset;
 			dispinfo_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
