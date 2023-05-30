@@ -1,7 +1,7 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
-#define TIMER_IRQ 0x20
+#define TIMER_IRQ 32
 
 extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
 
