@@ -6,6 +6,7 @@ extern ssize_t fs_write(int fd, const void *buf, size_t len);
 extern int fs_open(const char *pathname, int flags, int mode);
 extern off_t fs_lseek(int fd, off_t offset, int whence);
 extern int fs_close(int fd);
+extern int mm_brk(uint32_t new_brk);
 
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
@@ -31,9 +32,7 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     case SYS_brk:
     // Log("brk\n");
-      // _heap.end = (void *)a[1];
-      SYSCALL_ARG1(r) = 0;
-      return r;
+      SYSCALL_ARG1(r) = mm_brk((uint32_t)SYSCALL_ARG2(r));
       break;
     case SYS_open:
     // Log("open\n");
