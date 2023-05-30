@@ -8,8 +8,9 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
     case _EVENT_SYSCALL:
     // Log("event\n");
-      schedule(r);
+      ;
       _RegSet* ret = do_syscall(r);
+      schedule(r);
 			return ret;
       break;
     case _EVENT_TRAP: 
