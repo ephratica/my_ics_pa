@@ -77,19 +77,15 @@ void _map(_Protect *p, void *va, void *pa) {
 	// PTE * pte = &page_base[page];
 	// *pte = (uint32_t)pa | PTE_P;
 
-  PDE *dir_base = (PDE *)(p->ptr);
-  //uint32_t page = ((uint32_t)va >> 12) & 0x000003ff;
-  //uint32_t dir = ((uint32_t)va >> 22) & 0x000003ff;
-  uint32_t page = PTX(va);
-  uint32_t dir = PDX(va);
-  // if the present bit is 0,palloc one 
-  if (!(dir_base[dir] & 0x1)) {
-    PTE *uptab = (PTE *)(palloc_f());
-    dir_base[dir]  = (uint32_t)uptab | PTE_P;
+  PDE *pde = ((PDE *)p->ptr) + PDX(va);
+  PTE *ptab;
+  if ((*pde & PTE_P) == 0) {
+    ptab = (PTE *)(palloc_f());
+    *pde = ((uint32_t)ptab & ~0xfff) | PTE_P;   
   }
-  PTE * page_base = (PTE *)(dir_base[dir] & 0xfffff000);
-  PTE * pte = &page_base[page];
-  *pte = (uint32_t)pa | PTE_P;
+  else 
+    ptab = (PTE *)PTE_ADDR(*pde);
+  ptab[PTX(va)] = ((uint32_t)pa & ~0xfff) | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
