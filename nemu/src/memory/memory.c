@@ -79,8 +79,18 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
-    Log("in different pages\n");
-    assert(0);
+    // Log("in different pages\n");
+    // assert(0);
+		int boundary = (int)(get_off(addr) + len - 0x1000);
+
+		uint32_t low_paddr = page_translate(addr, false);
+		uint32_t low = paddr_read(low_paddr, len - boundary);
+
+		uint32_t high_paddr = page_translate(addr + len - boundary, false);
+		uint32_t high = paddr_read(high_paddr, boundary);
+
+		uint32_t paddr = (high << ((len - boundary) << 3)) + low;
+		return paddr;
   }
   else{
     paddr_t paddr = page_translate(addr, false);
@@ -90,8 +100,18 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
   if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
-    Log("in different pages\n");
-    assert(0);
+    // Log("in different pages\n");
+    // assert(0);
+		int boundary = (int)(get_off(addr) + len - 0x1000);
+
+		uint32_t low = (data << (boundary << 3)) >> (boundary << 3);
+		uint32_t high = data >> ((len - boundary) << 3);
+	
+		uint32_t low_paddr = page_translate(addr, true);
+		paddr_write(low_paddr, len - boundary, low);
+
+		uint32_t high_paddr = page_translate(addr + len - boundary, true);
+		paddr_write(high_paddr, boundary, high);
   }
   else{
     paddr_t paddr = page_translate(addr, true);
