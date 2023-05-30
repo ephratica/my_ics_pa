@@ -78,43 +78,88 @@ uint32_t page_translate(vaddr_t addr, bool iswrite){
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
-    // Log("in different pages\n");
-    // assert(0);
-		int boundary = (int)(get_off(addr) + len - 0x1000);
+  // if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
+  //   // Log("in different pages\n");
+  //   // assert(0);
+	// 	int boundary = (int)(get_off(addr) + len - 0x1000);
 
-		uint32_t low_paddr = page_translate(addr, false);
-		uint32_t low = paddr_read(low_paddr, len - boundary);
+	// 	uint32_t low_paddr = page_translate(addr, false);
+	// 	uint32_t low = paddr_read(low_paddr, len - boundary);
 
-		uint32_t high_paddr = page_translate(addr + len - boundary, false);
-		uint32_t high = paddr_read(high_paddr, boundary);
+	// 	uint32_t high_paddr = page_translate(addr + len - boundary, false);
+	// 	uint32_t high = paddr_read(high_paddr, boundary);
 
-		uint32_t paddr = (high << ((len - boundary) << 3)) + low;
+	// 	uint32_t paddr = (high << ((len - boundary) << 3)) + low;
+	// 	return paddr;
+  // }
+  // else{
+  //   paddr_t paddr = page_translate(addr, false);
+	// 	return paddr_read(paddr, len);
+  // }
+
+  if (((addr & 0xfff) + len) > 0x1000) {
+		//Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
+		/* this is a special case, you can handle it later. */
+		int point;
+		paddr_t paddr, low, high;
+		// calculate the split point
+		point = (int)((addr & 0xfff) + len - 0x1000);
+		// get the low address
+		paddr = page_translate(addr, false);
+		low = paddr_read(paddr, len - point);
+		// get the low address
+		paddr = page_translate(addr + len - point, false);
+		high = paddr_read(paddr, point);
+		paddr = (high << ((len - point) << 3)) + low;
 		return paddr;
-  }
-  else{
-    paddr_t paddr = page_translate(addr, false);
+	}
+	else {
+		paddr_t paddr = page_translate(addr, false);
 		return paddr_read(paddr, len);
-  }
+	}
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
-    // Log("in different pages\n");
-    // assert(0);
-		int boundary = (int)(get_off(addr) + len - 0x1000);
+  // if(get_pte_addr(addr) != get_pte_addr(addr + len -1)){
+  //   // Log("in different pages\n");
+  //   // assert(0);
+	// 	int boundary = (int)(get_off(addr) + len - 0x1000);
 
-		uint32_t low = (data << (boundary << 3)) >> (boundary << 3);
-		uint32_t high = data >> ((len - boundary) << 3);
+	// 	uint32_t low = (data << (boundary << 3)) >> (boundary << 3);
+	// 	uint32_t high = data >> ((len - boundary) << 3);
 	
-		uint32_t low_paddr = page_translate(addr, true);
-		paddr_write(low_paddr, len - boundary, low);
+	// 	uint32_t low_paddr = page_translate(addr, true);
+	// 	paddr_write(low_paddr, len - boundary, low);
 
-		uint32_t high_paddr = page_translate(addr + len - boundary, true);
-		paddr_write(high_paddr, boundary, high);
-  }
-  else{
-    paddr_t paddr = page_translate(addr, true);
+	// 	uint32_t high_paddr = page_translate(addr + len - boundary, true);
+	// 	paddr_write(high_paddr, boundary, high);
+  // }
+  // else{
+  //   paddr_t paddr = page_translate(addr, true);
+	// 	paddr_write(paddr, len, data);
+  // }
+
+  if (((addr & 0xfff) + len) > 0x1000) {
+		int point;
+		uint32_t low, high;
+		paddr_t paddr;
+		// calculate the split point 
+		point = (int)((addr & 0xfff) + len - 0x1000);
+		// split the date into the high and low
+		low = (data << (point << 3)) >> (point << 3);
+		high = data >> ((len - point) << 3);
+	
+		//Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
+		// store the low data
+		paddr = page_translate(addr, true);
+		paddr_write(paddr, len - point, low);
+		// store the high data
+		paddr = page_translate(addr + len - point, true);
+		paddr_write(paddr, point, high);
+	}
+	else {
+		//Log("i am here~");
+		paddr_t paddr = page_translate(addr, true);
 		paddr_write(paddr, len, data);
-  }
+	}
 }
