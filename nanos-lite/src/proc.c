@@ -27,6 +27,7 @@ void load_prog(const char *filename) {
 }
 
 _RegSet* schedule(_RegSet *prev) {
+  printf("schedule\n");
   // save the context pointer
   if (current)current->tf = prev;
 
