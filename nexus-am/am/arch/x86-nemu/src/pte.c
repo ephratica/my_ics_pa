@@ -89,7 +89,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   }
   
   // eflags
-  *(--psk) = 0x2;
+  *(--psk) = 0x202;
   // cs
   *(--psk) = 0x8;
   // entry
