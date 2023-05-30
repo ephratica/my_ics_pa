@@ -33,16 +33,16 @@ _RegSet* schedule(_RegSet *prev) {
   // TODO: switch to the new address space,
   // then return the new context
 
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
-  // static int count = 0;
-  // if(current == &pcb[0])count ++;
-  // else current = &pcb[0];
+  static int count = 0;
+  if(current == &pcb[0])count ++;
+  else current = &pcb[0];
 
-  // if(count == 100){
-  //   current = &pcb[1];
-  //   count = 0;
-  // }
+  if(count == 1000){
+    current = &pcb[1];
+    count = 0;
+  }
 
   _switch(&current->as); 
   return current->tf;
