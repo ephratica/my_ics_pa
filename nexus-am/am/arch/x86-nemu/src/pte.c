@@ -91,11 +91,11 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   // eflags
   *(--psk) = 0x2;
   // cs
-  *(--psk) = 8;
+  *(--psk) = 0x8;
   // entry
   *(--psk) = (uint32_t)entry;
   // error_code
-  *(--psk) = 0;   
+  *(--psk) = 0x0;   
   // irq                 
   *(--psk) = 0x81;
 
@@ -103,5 +103,6 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   for(int i = 0; i < 8; i++){
     *(--psk) = 0x0;
   }
+  psk++;
   return (_RegSet *)psk;
 }
