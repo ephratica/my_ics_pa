@@ -8,6 +8,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   // TODO();
   // assert(NO <= cpu.idtr.limit);
+  if(NO == 32)Log("raise 32\n");
   if (NO > cpu.idtr.limit){
     printf("NO: 0x%x, limit: 0x%x\n", NO, cpu.idtr.limit);
     assert(0);
@@ -27,6 +28,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 }
 
 void dev_raise_intr() {
-  Log("set ture\n");
+  // Log("set ture\n");
   cpu.INTR = true;
 }
