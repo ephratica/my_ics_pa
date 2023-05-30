@@ -33,6 +33,7 @@ _RegSet* do_syscall(_RegSet *r) {
     // Log("brk\n");
       // _heap.end = (void *)a[1];
       SYSCALL_ARG1(r) = 0;
+      return r;
       break;
     case SYS_open:
     // Log("open\n");
