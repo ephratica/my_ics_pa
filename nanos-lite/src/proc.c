@@ -38,11 +38,11 @@ _RegSet* schedule(_RegSet *prev) {
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
   static int count = 0;
-  if(current != &pcb[2])count ++;
+  if(current != &pcb[1])count ++;
   else current = &pcb[current_game];
 
   if(count == 1000){
-    current = &pcb[2];
+    current = &pcb[1];
     count = 0;
   }
 
