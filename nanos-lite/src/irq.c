@@ -8,15 +8,14 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
     case _EVENT_SYSCALL:
     // Log("event\n");
-      // do_syscall(r);
-			// return schedule(r);
+			// return schedule(do_syscall(r));
       return do_syscall(r);
       break;
     case _EVENT_TRAP: 
       return schedule(r);
       break;
     case _EVENT_IRQ_TIME: 
-      // Log("asye pass\n");
+      Log("_EVENT_IRQ_TIME\n");
       return schedule(r);
       break;
     default: panic("Unhandled event ID = %d", e.event);
