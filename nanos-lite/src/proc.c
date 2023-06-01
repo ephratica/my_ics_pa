@@ -6,6 +6,8 @@ static PCB pcb[MAX_NR_PROC];
 static int nr_proc = 0;
 PCB *current = NULL;
 
+int current_game = 0;
+
 uintptr_t loader(_Protect *as, const char *filename);
 
 void load_prog(const char *filename) {
@@ -36,11 +38,11 @@ _RegSet* schedule(_RegSet *prev) {
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
   static int count = 0;
-  if(current == &pcb[0])count ++;
-  else current = &pcb[0];
+  if(current != &pcb[2])count ++;
+  else current = &pcb[current_game];
 
   if(count == 1000){
-    current = &pcb[1];
+    current = &pcb[2];
     count = 0;
   }
 
