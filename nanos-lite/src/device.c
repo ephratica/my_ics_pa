@@ -15,11 +15,11 @@ size_t events_read(void *buf, size_t len) {
     sprintf((char *)buf, "t %d\n", _uptime());
   else {
     if (key & 0x8000) {
-      // extern int current_game;
-      // if((key & ~0x8000) == _KEY_F12){
-      //   current_game = !current_game;
-      //   Log("switch to game: %d", current_game);
-      // }
+      extern int current_game;
+      if((key & ~0x8000) == _KEY_F12){
+        current_game = !current_game;
+        Log("switch to game: %d", current_game);
+      }
       key ^= 0x8000;
       down = 1;
     }
