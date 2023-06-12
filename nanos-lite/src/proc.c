@@ -37,14 +37,15 @@ _RegSet* schedule(_RegSet *prev) {
 
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
-  static int count = 0;
-  if(current == &pcb[1] || current == &pcb[0])count ++;
-  else current = &pcb[current_game];
+  // static int count = 0;
+  current = &pcb[0];
+  // if(current == &pcb[1] || current == &pcb[0])count ++;
+  // else current = &pcb[current_game];
 
-  if(count == 1000){
-    current = &pcb[2];
-    count = 0;
-  }
+  // if(count == 1000){
+  //   current = &pcb[2];
+  //   count = 0;
+  // }
 
   _switch(&current->as); 
   return current->tf;
