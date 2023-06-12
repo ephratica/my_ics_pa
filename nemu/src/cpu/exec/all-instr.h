@@ -55,6 +55,8 @@ make_EHelper(shl);
 make_EHelper(shr);
 make_EHelper(not);
 make_EHelper(rol);
+make_EHelper(shld);
+make_EHelper(shrd);
 
 // special
 make_EHelper(nop);
