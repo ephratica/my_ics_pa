@@ -3,13 +3,19 @@
 #include <assert.h>
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+  return ((uint64_t)a * (uint64_t)b) >> 16;;
 }
 
+FLOAT Fabs(FLOAT x) { return x < 0 ? -x : x;}
+
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+  assert(b != 0);
+  uint32_t sign = ((a ^ b) & 0x80000000) >> 31;
+  a = Fabs(a);
+  b = Fabs(b);
+  uint32_t result = (a / b) << 16;
+  result |= (((uint64_t)(a%b) << 16) / b) & 0x0000ffff;
+  return sign ? -result : result;
 }
 
 FLOAT f2F(float a) {
@@ -23,13 +29,29 @@ FLOAT f2F(float a) {
    * performing arithmetic operations on it directly?
    */
 
-  assert(0);
-  return 0;
-}
+  uint32_t *f = (uint32_t *)&a;
+  uint32_t f_sign = (*f & 0x80000000) >> 31;
+  uint32_t f_exp = (*f & 0x7f800000) >> 23;
+  uint32_t f_frac = *f & 0x007fffff;
+  uint32_t F_exp, F_frac, result;
 
-FLOAT Fabs(FLOAT a) {
-  assert(0);
-  return 0;
+  
+  if (f_exp == 0xff) { // NaN, Inf
+    assert(0);
+  } 
+  else if (f_exp == 0) { // Subnormal numbers
+    F_exp = 1 - 127;
+    F_frac = f_frac;
+  } 
+  else {
+    F_exp = f_exp - 127;
+    F_frac = f_frac | (1 << 23);
+  }
+
+  if (F_exp >= 7 && F_exp < 22) result = F_frac << (F_exp - 7);
+  else if (F_exp < 7) result = F_frac >> (7 - F_exp);
+
+  return f_sign? -result : result;
 }
 
 /* Functions below are already implemented */
