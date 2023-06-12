@@ -13,8 +13,16 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   uint32_t sign = ((a ^ b) & 0x80000000) >> 31;
   a = Fabs(a);
   b = Fabs(b);
-  uint32_t result = (a / b) << 16;
-  result |= (((uint64_t)(a%b) << 16) / b) & 0x0000ffff;
+  int result = (a / b) << 16;
+  // result |= (((uint64_t)(a%b) << 16) / (uint64_t)b) & 0x0000ffff;
+  uint32_t MOD = a%b, left;
+	for (int i = 0; i < 16; i++, MOD <<= 1, left <<= 1) {
+		if (MOD >= b) {
+			MOD -= b;
+			left++;
+		}
+	}
+  result |= left;
   return sign ? -result : result;
 }
 
