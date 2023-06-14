@@ -56,7 +56,7 @@ FLOAT f2F(float a) {
     F_frac = f_frac | (1 << 23);
   }
 
-  if (F_exp >= 7 && F_exp < 22) result = F_frac << (F_exp - 7);
+  if (F_exp >= 7) result = F_frac << (F_exp - 7);
   else if (F_exp < 7) result = F_frac >> (7 - F_exp);
 
   return f_sign? -result : result;
